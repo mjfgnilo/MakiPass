@@ -65,14 +65,14 @@
     <div class="card mb-2">
       <h3>Create New Tier</h3>
       <form on:submit|preventDefault={createTier}>
-        <label>Tier Number</label>
-        <input type="number" bind:value={form.tier_number} min="1" required />
+        <label for="tier_number">Tier Number <span class="text-danger">*</span></label>
+        <input id="tier_number" type="number" bind:value={form.tier_number} min="1" required />
 
-        <label>XP Required</label>
-        <input type="number" bind:value={form.xp_required} min="1" required />
+        <label for="xp_required">XP Required <span class="text-danger">*</span></label>
+        <input id="xp_required" type="number" bind:value={form.xp_required} min="1" required />
 
-        <label>Reward Description</label>
-        <input type="text" bind:value={form.reward_description} placeholder="e.g., Exclusive sticker pack" required />
+        <label for="reward_description">Reward Description <span class="text-danger">*</span></label>
+        <input id="reward_description" type="text" bind:value={form.reward_description} placeholder="e.g., Exclusive sticker pack" required />
 
         <button type="submit" class="btn btn-success">Create Tier</button>
       </form>

@@ -1,0 +1,3 @@
+## 2024-06-13 - Explicit Form Labels and Required Field Indicators
+**Learning:** In custom Svelte forms, it is critical to explicitly associate labels with inputs using the `for` and `id` attributes. The A11y linters will catch missing implicit/explicit bounds. Furthermore, adding visual cues like a red asterisk `*` explicitly informs users when a field is required, preventing frustration. We should apply this pattern consistently across all user and admin panels.
+**Action:** Always ensure that every `label` in a form has a valid `for` attribute pointing to its corresponding input `id`. In addition, ensure visual accessibility for required fields using consistent UI patterns, such as a styled asterisk.
