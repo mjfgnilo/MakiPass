@@ -49,10 +49,10 @@
 
   <div class="card" style="max-width: 400px; margin: 0 auto;">
     <form on:submit|preventDefault={handleLogin}>
-      <label for="username">Username</label>
+      <label for="username">Username <span class="text-danger">*</span></label>
       <input id="username" type="text" bind:value={username} placeholder="Enter username" required />
 
-      <label for="password">Password</label>
+      <label for="password">Password <span class="text-danger">*</span></label>
       <input id="password" type="password" bind:value={password} placeholder="Enter password" required />
 
       <button type="submit" class="btn btn-primary" style="width: 100%;" disabled={loading}>

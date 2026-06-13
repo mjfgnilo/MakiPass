@@ -88,17 +88,17 @@
     <div class="card mb-2">
       <h3>{editingMission ? 'Edit Mission' : 'Create New Mission'}</h3>
       <form on:submit|preventDefault={saveMission}>
-        <label>Title</label>
-        <input type="text" bind:value={form.title} required />
+        <label for="title">Title <span class="text-danger">*</span></label>
+        <input id="title" type="text" bind:value={form.title} required />
 
-        <label>Description</label>
-        <textarea bind:value={form.description} rows="3"></textarea>
+        <label for="description">Description</label>
+        <textarea id="description" bind:value={form.description} rows="3"></textarea>
 
-        <label>XP Reward</label>
-        <input type="number" bind:value={form.xp_reward} min="1" required />
+        <label for="xp_reward">XP Reward <span class="text-danger">*</span></label>
+        <input id="xp_reward" type="number" bind:value={form.xp_reward} min="1" required />
 
-        <label>Type</label>
-        <select bind:value={form.type}>
+        <label for="type">Type</label>
+        <select id="type" bind:value={form.type}>
           <option value="scan">QR Scan</option>
           <option value="chain">Chain Mission</option>
           <option value="location">Location-based</option>
@@ -106,11 +106,11 @@
           <option value="weekly">Weekly</option>
         </select>
 
-        <label>Start Date (optional)</label>
-        <input type="datetime-local" bind:value={form.starts_at} />
+        <label for="starts_at">Start Date (optional)</label>
+        <input id="starts_at" type="datetime-local" bind:value={form.starts_at} />
 
-        <label>End Date (optional)</label>
-        <input type="datetime-local" bind:value={form.ends_at} />
+        <label for="ends_at">End Date (optional)</label>
+        <input id="ends_at" type="datetime-local" bind:value={form.ends_at} />
 
         <button type="submit" class="btn btn-success">
           {editingMission ? 'Update' : 'Create'} Mission

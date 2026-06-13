@@ -58,16 +58,16 @@
 
   <div class="card mb-2">
     <h3>Generate New QR Code</h3>
-    <label>Select Mission</label>
-    <select bind:value={selectedMission}>
+    <label for="mission">Select Mission <span class="text-danger">*</span></label>
+    <select id="mission" bind:value={selectedMission}>
       <option value="">-- Select a mission --</option>
       {#each missions as mission}
         <option value={mission.id}>{mission.title}</option>
       {/each}
     </select>
 
-    <label>QR Type</label>
-    <select bind:value={qrType}>
+    <label for="qr_type">QR Type</label>
+    <select id="qr_type" bind:value={qrType}>
       <option value="static">Static (permanent)</option>
       <option value="chain">Chain (rotates every 30s)</option>
     </select>
