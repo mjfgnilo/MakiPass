@@ -35,15 +35,19 @@ export class BattlepassService {
 
   /** Add XP to player */
   async addXp(playerId: string, xpAmount: number) {
-    const progress = await this.getPlayerProgress(playerId);
+    // ⚡ Bolt Optimization: Fetch progress and tiers concurrently
+    const [progress, tiers] = await Promise.all([
+      this.getPlayerProgress(playerId),
+      this.getTiers()
+    ]);
     const newXp = (progress.xp || 0) + xpAmount;
 
-    // Determine new tier
-    const tiers = await this.getTiers();
+    // ⚡ Bolt Optimization: Iterate backwards and break early
     let currentTier = 0;
-    for (const tier of tiers) {
-      if (newXp >= tier.xp_required) {
-        currentTier = tier.tier_number;
+    for (let i = tiers.length - 1; i >= 0; i--) {
+      if (newXp >= tiers[i].xp_required) {
+        currentTier = tiers[i].tier_number;
+        break;
       }
     }
 
