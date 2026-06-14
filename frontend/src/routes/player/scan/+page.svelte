@@ -57,30 +57,32 @@
       <p style="color: var(--text-muted);">📷 Camera QR scanning<br><small>(requires HTTPS and camera permissions)</small></p>
     </div>
 
-    <label for="manual-code">Or enter code manually:</label>
-    <input
-      id="manual-code"
-      type="text"
-      bind:value={manualCode}
-      placeholder="Enter QR code value..."
-    />
-    <button class="btn btn-primary" style="width: 100%;" on:click={submitManualCode} disabled={scanning}>
-      {#if scanning}
-        Validating...
-      {:else}
-        Submit Code
-      {/if}
-    </button>
+    <form on:submit|preventDefault={submitManualCode}>
+      <label for="manual-code">Or enter code manually:</label>
+      <input
+        id="manual-code"
+        type="text"
+        bind:value={manualCode}
+        placeholder="Enter QR code value..."
+      />
+      <button type="submit" class="btn btn-primary" style="width: 100%;" disabled={scanning || !manualCode.trim()}>
+        {#if scanning}
+          Validating...
+        {:else}
+          Submit Code
+        {/if}
+      </button>
+    </form>
   </div>
 
   {#if error}
-    <div class="card" style="border-color: var(--danger); max-width: 500px; margin: 1rem auto;">
+    <div role="alert" class="card" style="border-color: var(--danger); max-width: 500px; margin: 1rem auto;">
       <p style="color: var(--danger);">❌ {error}</p>
     </div>
   {/if}
 
   {#if scanResult}
-    <div class="card" style="max-width: 500px; margin: 1rem auto; border-color: {scanResult.valid ? 'var(--success)' : 'var(--danger)'};">
+    <div role="status" aria-live="polite" class="card" style="max-width: 500px; margin: 1rem auto; border-color: {scanResult.valid ? 'var(--success)' : 'var(--danger)'};">
       {#if scanResult.valid}
         <h3 style="color: var(--success);">✅ Scan Successful!</h3>
         <p>Mission: <strong>{scanResult.mission?.title || 'Unknown'}</strong></p>
