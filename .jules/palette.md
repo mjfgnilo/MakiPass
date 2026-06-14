@@ -1,0 +1,3 @@
+## 2024-06-14 - Dynamic Feedback and Keyboard Accessibility in QR Scanner
+**Learning:** Wrapping manual inputs and submit buttons in forms instead of relying on `on:click` bindings natively enables "Enter" key submission, improving keyboard accessibility. Further, adding `role="alert"` to error messages and `role="status" aria-live="polite"` to dynamically injected result containers ensures screen readers accurately and promptly announce scan outcomes without requiring manual focus shifts.
+**Action:** Always wrap correlated inputs and actions in `<form>` tags. Ensure dynamic success/error message containers have appropriate ARIA live region roles (`alert` for immediate errors, `status` for polite updates).

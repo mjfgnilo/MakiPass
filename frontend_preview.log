@@ -1,0 +1,25 @@
+
+> makipass-web@1.0.0 preview
+> vite preview
+
+  ➜  Local:   http://localhost:4173/
+  ➜  Network: use --host to expose
+
+[1;31m[500] GET /player/scan[0m
+Error: supabaseUrl is required.
+    at validateSupabaseUrl (file:///app/frontend/node_modules/.pnpm/@supabase+supabase-js@2.108.1/node_modules/@supabase/supabase-js/dist/index.mjs:405:25)
+    at new SupabaseClient (file:///app/frontend/node_modules/.pnpm/@supabase+supabase-js@2.108.1/node_modules/@supabase/supabase-js/dist/index.mjs:645:19)
+    at createClient (file:///app/frontend/node_modules/.pnpm/@supabase+supabase-js@2.108.1/node_modules/@supabase/supabase-js/dist/index.mjs:872:9)
+    at file:///app/frontend/.svelte-kit/output/server/chunks/api.js:4:1
+    at ModuleJob.run (node:internal/modules/esm/module_job:343:25)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:665:26)
+    at async Module.component (file:///app/frontend/.svelte-kit/output/server/nodes/11.js:5:59)
+    at async Promise.all (index 1)
+    at async render_response (file:///app/frontend/.svelte-kit/output/server/index.js:1933:21)
+Killed
+npm notice
+npm notice New minor version of npm available! 11.11.0 -> 11.17.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.17.0
+npm notice To update run: npm install -g npm@11.17.0
+npm notice
