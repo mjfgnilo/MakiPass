@@ -1,0 +1,4 @@
+## 2024-06-15 - [CRITICAL] Authorization bypass on QR Codes API Endpoint
+**Vulnerability:** The GET /qr endpoint (`getAllQrCodes` in `backend/src/qr/qr.controller.ts`) was only protected by `AuthGuard('jwt')` instead of requiring admin authorization. Any authenticated user (like a regular player) could access this endpoint.
+**Learning:** This bypass is critical because returning all QR codes directly to the client allows players to skip finding the physical codes in the game environment and submit scans programmatically. NestJS Guards need strictly layered roles when defining endpoints.
+**Prevention:** Always verify if an endpoint intended for admin-use has explicitly applied role-based guards (like `AdminGuard`), in addition to basic authentication guards. Do not assume endpoint paths (e.g. lack of `/admin` prefix) intrinsically restrict access without guards.
