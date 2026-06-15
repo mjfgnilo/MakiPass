@@ -8,6 +8,16 @@
   let playerMissions = [];
   let loading = true;
 
+  // ⚡ Bolt Performance Optimization:
+  // Convert completed missions array to a Set for O(1) lookups during rendering.
+  // This prevents an O(n*m) bottleneck where Array.some() was called for every mission
+  // in the #each loop.
+  $: completedMissionIds = new Set(
+    playerMissions
+      .filter(pm => pm.status === 'completed')
+      .map(pm => pm.mission_id)
+  );
+
   onMount(async () => {
     try {
       [missions, playerMissions] = await Promise.all([
@@ -22,7 +32,7 @@
   });
 
   function isCompleted(missionId) {
-    return playerMissions.some(pm => pm.mission_id === missionId && pm.status === 'completed');
+    return completedMissionIds.has(missionId);
   }
 
   function handleLogout() {

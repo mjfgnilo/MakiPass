@@ -1,0 +1,1 @@
+## 2024-05-24 - O(n) Optimization in Svelte Render\n**Learning:** Found an O(n*m) complexity operation in the `isCompleted` function within an `#each` loop in Svelte, iterating `playerMissions` for every `mission`.\n**Action:** Replace `Array.some()` inside loops with reactive Sets (`$: completedSet = new Set(...)`) for O(1) lookups during rendering.
