@@ -21,8 +21,16 @@
     }
   });
 
+  // ⚡ Bolt: Replaced O(N^2) array scan with O(1) Set lookup
+  // Pre-computing completed mission IDs prevents O(N*M) checks in the {#each} block
+  $: completedMissionIds = new Set(
+    playerMissions
+      .filter(pm => pm.status === 'completed')
+      .map(pm => pm.mission_id)
+  );
+
   function isCompleted(missionId) {
-    return playerMissions.some(pm => pm.mission_id === missionId && pm.status === 'completed');
+    return completedMissionIds.has(missionId);
   }
 
   function handleLogout() {
