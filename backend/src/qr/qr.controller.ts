@@ -1,5 +1,6 @@
 import { Controller, Post, Get, Body, Param, UseGuards, Request } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { AdminGuard } from '../auth/roles.guard';
 import { QrService } from './qr.service';
 
 @Controller('qr')
@@ -14,7 +15,7 @@ export class QrController {
   }
 
   /** Get all QR codes (admin view) */
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(AuthGuard('jwt'), AdminGuard)
   @Get()
   async getAllQrCodes() {
     return this.qrService.getAllQrCodes();
