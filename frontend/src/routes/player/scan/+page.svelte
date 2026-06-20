@@ -58,19 +58,21 @@
     </div>
 
     <label for="manual-code">Or enter code manually:</label>
-    <input
-      id="manual-code"
-      type="text"
-      bind:value={manualCode}
-      placeholder="Enter QR code value..."
-    />
-    <button class="btn btn-primary" style="width: 100%;" on:click={submitManualCode} disabled={scanning}>
-      {#if scanning}
-        Validating...
-      {:else}
-        Submit Code
-      {/if}
-    </button>
+    <form on:submit|preventDefault={submitManualCode}>
+      <input
+        id="manual-code"
+        type="text"
+        bind:value={manualCode}
+        placeholder="Enter QR code value..."
+      />
+      <button type="submit" class="btn btn-primary" style="width: 100%;" disabled={scanning}>
+        {#if scanning}
+          Validating...
+        {:else}
+          Submit Code
+        {/if}
+      </button>
+    </form>
   </div>
 
   {#if error}
