@@ -5,10 +5,16 @@ import { ExtractJwt, Strategy } from 'passport-jwt';
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor() {
+    // Ensure we fail securely if secret is somehow missing here too
+    const secretOrKey = process.env.JWT_SECRET;
+    if (!secretOrKey) {
+      throw new Error('CRITICAL SECURITY ERROR: JWT_SECRET environment variable is missing.');
+    }
+
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,
-      secretOrKey: process.env.JWT_SECRET || 'dev-secret-change-me',
+      secretOrKey,
     });
   }
 
