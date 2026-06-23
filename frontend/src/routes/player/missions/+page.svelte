@@ -8,6 +8,14 @@
   let playerMissions = [];
   let loading = true;
 
+  // ⚡ Bolt: Pre-compute a Set of completed mission IDs for O(1) lookups during rendering.
+  // This prevents an O(N^2) bottleneck when rendering large lists of missions.
+  $: completedMissionIds = new Set(
+    playerMissions
+      .filter(pm => pm.status === 'completed')
+      .map(pm => pm.mission_id)
+  );
+
   onMount(async () => {
     try {
       [missions, playerMissions] = await Promise.all([
@@ -20,10 +28,6 @@
       loading = false;
     }
   });
-
-  function isCompleted(missionId) {
-    return playerMissions.some(pm => pm.mission_id === missionId && pm.status === 'completed');
-  }
 
   function handleLogout() {
     logout();
@@ -58,7 +62,7 @@
         <div class="card">
           <div class="flex justify-between items-center" style="margin-bottom: 0.5rem;">
             <h3>{mission.title}</h3>
-            {#if isCompleted(mission.id)}
+            {#if completedMissionIds.has(mission.id)}
               <span class="badge badge-success">✓ Done</span>
             {:else}
               <span class="badge badge-warning">Active</span>
