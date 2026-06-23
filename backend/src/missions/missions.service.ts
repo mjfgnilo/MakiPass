@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, ForbiddenException } from '@nestjs/common';
 import { SupabaseService } from '../common/supabase.service';
 
 @Injectable()
@@ -77,6 +77,26 @@ export class MissionsService {
   }
 
   async completeMission(playerId: string, missionId: string) {
+    // SECURITY: Prevent IDOR/authorization bypass where users can complete any mission without scanning.
+    const mission = await this.getMissionById(missionId);
+
+    if (mission.type === 'scan' || mission.type === 'chain') {
+      const { data: scanLog, error: scanLogError } = await this.supabase
+        .getClient()
+        .from('scan_logs')
+        .select('*')
+        .eq('player_id', playerId)
+        .eq('mission_id', missionId)
+        .limit(1)
+        .maybeSingle();
+
+      if (scanLogError) throw scanLogError;
+
+      if (!scanLog) {
+        throw new ForbiddenException('Cannot complete this mission without scanning a valid QR code first');
+      }
+    }
+
     const { data, error } = await this.supabase
       .getClient()
       .from('player_missions')
