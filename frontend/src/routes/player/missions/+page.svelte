@@ -21,8 +21,17 @@
     }
   });
 
+  // Performance optimization: Pre-compute completed mission IDs into a Set
+  // This changes the render complexity from O(N*M) to O(N+M)
+  // by replacing the O(M) `.some()` check inside the loop with an O(1) Set lookup.
+  $: completedMissionIds = new Set(
+    playerMissions
+      .filter(pm => pm.status === 'completed')
+      .map(pm => pm.mission_id)
+  );
+
   function isCompleted(missionId) {
-    return playerMissions.some(pm => pm.mission_id === missionId && pm.status === 'completed');
+    return completedMissionIds.has(missionId);
   }
 
   function handleLogout() {
