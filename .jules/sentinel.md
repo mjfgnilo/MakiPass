@@ -1,0 +1,4 @@
+## 2024-06-25 - Hardcoded JWT Secret Fallback Removed
+**Vulnerability:** The NestJS backend had a hardcoded `JWT_SECRET` fallback (`'dev-secret-change-me'`) in `auth.module.ts` and `jwt.strategy.ts`. This poses a critical security risk because if the application is deployed without configuring the `JWT_SECRET` environment variable, it defaults to a known secret, allowing unauthorized attackers to forge valid JWT tokens and bypass authentication.
+**Learning:** Hardcoded fallbacks in authentication configurations create a false sense of security during development but are a critical vulnerability in production environments if environment variables are not correctly mapped or passed.
+**Prevention:** Always follow a fail-secure architecture. If critical security configuration (like a JWT secret or database URL) is missing, the application must immediately throw a clear, explicit error during bootstrap rather than quietly falling back to a default insecure value.
