@@ -21,8 +21,11 @@
     }
   });
 
+  // Pre-compute completed mission IDs for O(1) lookup to prevent O(N*M) rendering bottlenecks in {#each} blocks
+  $: completedMissionIds = new Set(playerMissions.filter(pm => pm.status === 'completed').map(pm => pm.mission_id));
+
   function isCompleted(missionId) {
-    return playerMissions.some(pm => pm.mission_id === missionId && pm.status === 'completed');
+    return completedMissionIds.has(missionId);
   }
 
   function handleLogout() {
