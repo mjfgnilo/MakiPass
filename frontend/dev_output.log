@@ -1,0 +1,35 @@
+
+> makipass-web@1.0.0 dev /app/frontend
+> vite dev
+
+Forced re-optimization of dependencies
+
+  VITE v5.4.21  ready in 1551 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+12:30:41 PM [vite] Error when evaluating SSR module /src/lib/api.js:
+|- Error: supabaseUrl is required.
+    at validateSupabaseUrl (file:///app/frontend/node_modules/.pnpm/@supabase+supabase-js@2.108.2/node_modules/@supabase/supabase-js/dist/index.mjs:405:25)
+    at new SupabaseClient (file:///app/frontend/node_modules/.pnpm/@supabase+supabase-js@2.108.2/node_modules/@supabase/supabase-js/dist/index.mjs:645:19)
+    at Module.createClient (file:///app/frontend/node_modules/.pnpm/@supabase+supabase-js@2.108.2/node_modules/@supabase/supabase-js/dist/index.mjs:872:9)
+    at /app/frontend/src/lib/api.js:6:25
+    at async instantiateModule (file:///app/frontend/node_modules/.pnpm/vite@5.4.21/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:53021:5)
+
+12:30:41 PM [vite] Error when evaluating SSR module /src/routes/player/missions/+page.svelte:
+|- Error: supabaseUrl is required.
+    at validateSupabaseUrl (file:///app/frontend/node_modules/.pnpm/@supabase+supabase-js@2.108.2/node_modules/@supabase/supabase-js/dist/index.mjs:405:25)
+    at new SupabaseClient (file:///app/frontend/node_modules/.pnpm/@supabase+supabase-js@2.108.2/node_modules/@supabase/supabase-js/dist/index.mjs:645:19)
+    at Module.createClient (file:///app/frontend/node_modules/.pnpm/@supabase+supabase-js@2.108.2/node_modules/@supabase/supabase-js/dist/index.mjs:872:9)
+    at /app/frontend/src/lib/api.js:6:25
+    at async instantiateModule (file:///app/frontend/node_modules/.pnpm/vite@5.4.21/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:53021:5)
+
+
+[1;31m[500] GET /player/missions[0m
+Error: supabaseUrl is required.
+    at validateSupabaseUrl (file:///app/frontend/node_modules/.pnpm/@supabase+supabase-js@2.108.2/node_modules/@supabase/supabase-js/dist/index.mjs:405:25)
+    at new SupabaseClient (file:///app/frontend/node_modules/.pnpm/@supabase+supabase-js@2.108.2/node_modules/@supabase/supabase-js/dist/index.mjs:645:19)
+    at Module.createClient (file:///app/frontend/node_modules/.pnpm/@supabase+supabase-js@2.108.2/node_modules/@supabase/supabase-js/dist/index.mjs:872:9)
+    at /app/frontend/src/lib/api.js:6:25
+    at async instantiateModule (file:///app/frontend/node_modules/.pnpm/vite@5.4.21/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:53021:5)
+ ELIFECYCLE  Command failed.
