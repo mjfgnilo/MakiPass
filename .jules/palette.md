@@ -1,0 +1,3 @@
+## 2024-06-30 - Enable "Enter to Submit" via Form Wrapping
+**Learning:** SvelteKit form inputs (like manual QR entry) and their associated action buttons will not natively support the "Enter" key for submission unless they are wrapped within a `<form>` element. Relying purely on `on:click` bindings on a button forces users to navigate to the button or click it to proceed, degrading UX.
+**Action:** Always wrap interactive standalone inputs and their submission buttons in a `<form on:submit|preventDefault={handler}>` component in Svelte. This natively enables the "Enter to submit" behavior and manages submission events gracefully without page reloads.
