@@ -8,6 +8,13 @@
   let playerMissions = [];
   let loading = true;
 
+  // Pre-compute completed missions set to prevent O(N^2) render bottleneck
+  $: completedMissions = new Set(
+    playerMissions
+      .filter(pm => pm.status === 'completed')
+      .map(pm => pm.mission_id)
+  );
+
   onMount(async () => {
     try {
       [missions, playerMissions] = await Promise.all([
@@ -22,7 +29,7 @@
   });
 
   function isCompleted(missionId) {
-    return playerMissions.some(pm => pm.mission_id === missionId && pm.status === 'completed');
+    return completedMissions.has(missionId);
   }
 
   function handleLogout() {
