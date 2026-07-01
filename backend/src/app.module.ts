@@ -6,9 +6,11 @@ import { BattlepassModule } from './battlepass/battlepass.module';
 import { AdminModule } from './admin/admin.module';
 import { ValidatorModule } from './validator/validator.module';
 import { HealthController } from './health.controller';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
     AuthModule,
     MissionsModule,
     QrModule,
