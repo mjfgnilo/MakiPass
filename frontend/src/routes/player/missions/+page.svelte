@@ -21,9 +21,11 @@
     }
   });
 
-  function isCompleted(missionId) {
-    return playerMissions.some(pm => pm.mission_id === missionId && pm.status === 'completed');
-  }
+  // Optimize O(N^2) rendering bottleneck: pre-compute derived state (O(1) lookups)
+  // instead of using array methods like .some() inside the {#each} render block
+  $: completedMissionIds = new Set(
+    playerMissions.filter(pm => pm.status === 'completed').map(pm => pm.mission_id)
+  );
 
   function handleLogout() {
     logout();
@@ -58,7 +60,7 @@
         <div class="card">
           <div class="flex justify-between items-center" style="margin-bottom: 0.5rem;">
             <h3>{mission.title}</h3>
-            {#if isCompleted(mission.id)}
+            {#if completedMissionIds.has(mission.id)}
               <span class="badge badge-success">✓ Done</span>
             {:else}
               <span class="badge badge-warning">Active</span>

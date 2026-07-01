@@ -1,0 +1,3 @@
+## 2024-05-18 - Svelte Rendering Optimization
+**Learning:** Pre-computing derived state (using reactive declarations `$:`) into data structures with O(1) lookups (like `Set` or `Map`) is crucial for performance when iterating over large lists with Svelte's `{#each}` blocks. Using array methods like `.some()` or `.find()` inside a helper function called during the render loop causes an O(N^2) bottleneck.
+**Action:** When rendering lists that require derived checks against another collection, pre-compute a `Set` or `Map` using Svelte's reactive declarations outside the `{#each}` block to achieve O(1) rendering lookups.
