@@ -1,0 +1,3 @@
+## 2026-07-03 - Svelte Array iteration O(N^2) Performance Bottleneck
+**Learning:** Using array lookup functions like `.some()` or `.find()` inside a Svelte helper function that is evaluated during an `{#each}` rendering loop creates an O(N*M) or O(N^2) time complexity rendering bottleneck, particularly noticeable with larger datasets.
+**Action:** Use Svelte's reactive declarations (`$:`) outside the loop to pre-compute derived state (e.g., using a `Set` for O(1) lookups) rather than evaluating array methods inside the render block.
