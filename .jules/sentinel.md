@@ -1,0 +1,4 @@
+## 2026-07-03 - Hardcoded JWT_SECRET Fallback
+**Vulnerability:** Found a hardcoded fallback string `'dev-secret-change-me'` being used for `JWT_SECRET` in `backend/src/auth/auth.module.ts` and `backend/src/auth/jwt.strategy.ts`.
+**Learning:** If the environment variable `JWT_SECRET` is missing in production, the application silently falls back to a known default. This allows attackers to forge JWT tokens and gain unauthorized access to any user account or system resources since the secret is available in the codebase.
+**Prevention:** Never use default strings as fallbacks for cryptographic secrets or passwords. Explicitly check for the existence of required secrets in the environment at startup and throw an error (fail securely) if they are missing.
