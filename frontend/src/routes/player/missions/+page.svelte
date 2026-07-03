@@ -8,6 +8,15 @@
   let playerMissions = [];
   let loading = true;
 
+  // Performance optimization: Pre-compute completed mission IDs into a Set
+  // to avoid O(N*M) rendering bottleneck caused by evaluating .some() on each iteration.
+  // Using Svelte's reactive declaration ($:) ensures it updates when playerMissions changes.
+  $: completedMissionIds = new Set(
+    playerMissions
+      .filter(pm => pm.status === 'completed')
+      .map(pm => pm.mission_id)
+  );
+
   onMount(async () => {
     try {
       [missions, playerMissions] = await Promise.all([
@@ -22,7 +31,7 @@
   });
 
   function isCompleted(missionId) {
-    return playerMissions.some(pm => pm.mission_id === missionId && pm.status === 'completed');
+    return completedMissionIds.has(missionId);
   }
 
   function handleLogout() {
