@@ -1,0 +1,4 @@
+## 2024-07-05 - Hardcoded JWT Secret Fallback Removed
+**Vulnerability:** A hardcoded, insecure JWT secret ('dev-secret-change-me') was being used as a fallback if the `JWT_SECRET` environment variable was missing in `auth.module.ts` and `jwt.strategy.ts`.
+**Learning:** This existed to potentially make local development easier, but it means that if the environment is misconfigured in production, the application silently falls back to a known, easily guessable secret, completely compromising JWT validation. The backend does not use `@nestjs/config`, so it relied on inline fallbacks for `process.env`.
+**Prevention:** Always fail securely. If a critical secret like `JWT_SECRET` is missing, the application must throw an explicit error at initialization rather than silently falling back to an insecure default.

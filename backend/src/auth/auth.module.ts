@@ -11,7 +11,13 @@ import { CommonModule } from '../common/common.module';
     CommonModule,
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.register({
-      secret: process.env.JWT_SECRET || 'dev-secret-change-me',
+      secret: (() => {
+        const secret = process.env.JWT_SECRET;
+        if (!secret) {
+          throw new Error('JWT_SECRET environment variable is missing. Failing securely.');
+        }
+        return secret;
+      })(),
       signOptions: { expiresIn: '7d' },
     }),
   ],
